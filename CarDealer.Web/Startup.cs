@@ -13,6 +13,7 @@ namespace CarDealer.Web
     using Services.Implementations;
     
     using CarDealer.Data.Models;
+    using CarDealer.Web.Extensions;
 
     public class Startup
     {
@@ -33,10 +34,12 @@ namespace CarDealer.Web
                 .AddEntityFrameworkStores<CarDealerDbContext>()
                 .AddDefaultTokenProviders();
 
+            // services.AddDomainServices();
+
             services.AddTransient<ICustomerService, CustomerService>();
             services.AddTransient<ICarService, CarService>();
             services.AddTransient<ISupplierService, SupplierService>();
-           
+
 
             services.AddMvc();
         }
