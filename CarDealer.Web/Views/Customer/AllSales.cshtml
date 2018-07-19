@@ -1,0 +1,38 @@
+﻿@model CustomerSales
+
+@{
+    ViewData["Title"] = $"Total sales for customer {Model.Name}";
+}
+
+<h2> @ViewData["Title"]</h2>
+
+<table class="table table-bordered table-hover" >
+    <thead>
+        <tr>
+            <th>
+                Customer
+            </th>
+            <th>
+                Total bought cars
+            </th>
+            <th>
+                Total amount spent
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+       
+            <tr>
+                <td>
+                   @Model.Name
+                </td>
+                <td>
+                    @Model.TotalSales
+                </td>
+                <td>
+                    @Model.TotalPrice.ToString("F2")
+                </td>
+            </tr>
+        
+    </tbody>
+</table>
