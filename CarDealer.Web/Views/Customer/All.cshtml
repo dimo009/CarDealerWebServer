@@ -24,17 +24,20 @@
     <tbody>
         @foreach (var customer in Model.Customers)
         {
-            <tr>
-                <td>
-                    @customer.Name
-                </td>
-                <td>
-                    @customer.Birthday.ToShortDateString()
-                </td>
-                <td>
-                    @(customer.IsYoung ? "YES" : "NO")
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @customer.Name
+            </td>
+            <td>
+                @customer.Birthday.ToShortDateString()
+            </td>
+            <td>
+                @(customer.IsYoung ? "YES" : "NO")
+            </td>
+            <td>
+                <a class="btn btn-warning btn-sm" href="/customers/edit/@customer.Id">Edit</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

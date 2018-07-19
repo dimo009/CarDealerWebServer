@@ -26,13 +26,24 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Car Dealer</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">CarDealer</a>
             </div>
 
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a href="/customers/all/ascending">Customers</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Customers
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/customers/create">Add customer</a></li>
+                            <li><a href="/customers/all/ascending">Customers A-Z</a></li>
+                            <li><a href="/customers/all/descending">Customers Z-A</a></li>
+                        </ul>
+                    </li>
+                   
                     <li><a href="/cars/parts">Cars</a></li>
 
                 </ul>

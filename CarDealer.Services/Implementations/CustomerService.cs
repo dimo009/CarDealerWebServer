@@ -20,7 +20,19 @@ namespace CarDealer.Services.Implementations
             this.db = db;
         }
 
-        
+      
+
+        public void Create(string name, DateTime birthday, bool isYoungDriver)
+        {
+            var customer = new Customer
+            {
+                Name = name,
+                Birthday = birthday,
+                IsYoung = isYoungDriver
+            };
+            this.db.Add(customer);
+            this.db.SaveChanges();
+        }
 
         public IEnumerable<CustomerModel> Ordered(OrderingType order)
         {
@@ -42,11 +54,30 @@ namespace CarDealer.Services.Implementations
             return customerQuery
                 .Select(c => new CustomerModel
                 {
+                    Id = c.Id,
                     Name = c.Name,
                     Birthday = c.Birthday,
                     IsYoung = c.IsYoung
                 }).ToList();
         }
+
+
+
+        //get the customer who will be editted
+
+        public CustomerModel ById(int id)
+            => this.db.Customers
+            .Where(c => c.Id == id)
+            .Select(c => new CustomerModel
+
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Birthday = c.Birthday,
+                IsYoung = c.IsYoung
+            })
+            .FirstOrDefault();
+        
 
         public CustomerSalesModel TotalSalesByCustomer(int custId)
         {
@@ -67,46 +98,26 @@ namespace CarDealer.Services.Implementations
                 }).FirstOrDefault();
             return result;
 
-        //    var customerName = this.db.Customers.FirstOrDefault(c => c.Id == custId).Name;
-
-        //    var totalSales = this.db.Sales.Where(c => c.CustomerId == custId).Count();
-
-        //    var sales = this.db.Sales.ToList().FindAll(c=>c.CustomerId == custId);
-        //    decimal sumSpent = 0;
-
-        //    foreach (var sale in sales)
-        //    {
-        //        var result = this.db
-        //        .Cars
-        //        .Where(c => c.Id == sale.CarId)
-        //        .Select(c => new CarPartsModel
-        //        {
-
-        //            Parts = c.Parts.Select(p => new PartModel
-        //            {
-        //                Name = p.Part.Name,
-        //                Price = p.Part.Price
-        //            })
- 
-        //        }).ToList();
-
-        //        foreach (var item in result)
-        //        {
-        //            sumSpent += item.Parts.Sum(p => p.Price);
-        //        }
-        //    }
-
-          
-        //    var customer = new CustomerSalesModel()
-        //    {
-        //        Name = customerName,
-        //        TotalSales = totalSales,
-        //        TotalPrice = sumSpent
-        //    };
-
-        //    return customer;
         }
 
+        public void Edit(int id, string name, DateTime birthday, bool isYoungDriver)
+        {
+            var customer = this.db.Customers.Find(id);
+
+            if (customer==null)
+            {
+                return;
+            }
+
+            customer.Name = name;
+            customer.Birthday = birthday;
+            customer.IsYoung = isYoungDriver;
+
+            this.db.SaveChanges();
+
+        }
+
+        public bool Exists(int id) => this.db.Customers.Any(c => c.Id == id);
         
     }
 }
