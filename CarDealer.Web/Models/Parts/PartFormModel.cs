@@ -23,7 +23,6 @@ namespace CarDealer.Web.Models.Parts
         [Display(Name = "Supplier")]
         public int SupplierId { get; set; }
 
-        
         public IEnumerable<SelectListItem> Suppliers { get; set; }
 
     }

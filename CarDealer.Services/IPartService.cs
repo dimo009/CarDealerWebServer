@@ -12,5 +12,6 @@ namespace CarDealer.Services
         int TotalPages();
 
         void Create(string name, decimal price, int quantity, int supplierId);
+        void Delete(int id);
     }
 }

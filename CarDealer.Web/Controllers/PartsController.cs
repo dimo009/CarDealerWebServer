@@ -26,7 +26,7 @@ namespace CarDealer.Web.Controllers
 
         public IActionResult Create() => View(new PartFormModel
         {
-            Suppliers = this.GetSupplierListItems();
+            Suppliers = this.GetSupplierListItems()
         });
 
         [HttpPost]
@@ -42,6 +42,19 @@ namespace CarDealer.Web.Controllers
 
             return this.RedirectToAction(nameof(All));
         }
+
+        public IActionResult Delete(int id)
+        {
+            return View(id);
+        }
+
+        public IActionResult Destroy(int id)
+        {
+            this.parts.Delete(id);
+
+            return RedirectToAction(nameof(All));
+        }
+
 
         public IActionResult All(int page=1)
         =>

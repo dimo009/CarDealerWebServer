@@ -50,6 +50,9 @@
             <th>
                 Supplier
             </th>
+            <th>
+                
+            </th>
         </tr>
     </thead>
 
@@ -57,18 +60,21 @@
         @foreach (var part in Model.Parts)
         {
         <tr>
-            <td>
+            <th>
                 @part.Name
-            </td>
-            <td>
+            </th>
+            <th>
                 @part.Price.ToString("F2")
-            </td>
-            <td>
+            </th>
+            <th>
                 @part.Qualtity
-            </td>
-            <td>
+            </th>
+            <th>
                 @part.SupplierName
-            </td>
+            </th>
+            <th>
+                <a href="/parts/delete/@part.Id class="btn btn-danger">Delete</a>"
+            </th>
             
         </tr>
         }
