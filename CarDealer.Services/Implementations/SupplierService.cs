@@ -16,11 +16,20 @@ namespace CarDealer.Services.Implementations
             this.db = db;
         }
 
-        public IEnumerable<SupplierModel> All(bool isImporter)
+        public IEnumerable<SupplierModel> All()
+        {
+            return this.db.Suppliers.OrderBy(s => s.Name).Select(s => new SupplierModel
+            {
+                Id = s.Id,
+                Name = s.Name
+            }).ToList();
+        }
+
+        public IEnumerable<SupplierListingModel> AllListings(bool isImporter)
         {
             var result = db.Suppliers
                 .Where(s => s.IsImporter == isImporter)
-                .Select(s => new SupplierModel
+                .Select(s => new SupplierListingModel
                 {
                     Id = s.Id,
                     Name = s.Name,

@@ -3,6 +3,7 @@
 namespace CarDealer.Services.Implementations
 {
     using CarDealer.Data;
+    using CarDealer.Data.Models;
     using CarDealer.Services.Models;
     using System.Collections.Generic;
     using System.Linq;
@@ -31,6 +32,29 @@ namespace CarDealer.Services.Implementations
                 Qualtity = p.Quantity,
                 SupplierName = p.Supplier.Name
             }).ToList();
+
+        public void Create(string name, decimal price, int quantity, int supplierId)
+        {
+            var part = new Part
+            {
+                Name = name,
+                Price = price,
+                Quantity = quantity > 0 ? quantity: 1,
+                SupplierId = supplierId
+            };
+
+            if (this.db.Parts.Any(p=>p.Name ==name) && this.db.Parts.FirstOrDefault(p => p.Name == name).SupplierId==supplierId)
+            {
+                this.db.Parts.FirstOrDefault(p => p.Name == name).Quantity += quantity;
+                this.db.Parts.FirstOrDefault(p => p.Name == name).Price = price;
+            }
+            else
+            {
+                this.db.Parts.Add(part);
+                
+            }
+            this.db.SaveChanges();
+        }
 
         public int TotalPages()
         {

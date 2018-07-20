@@ -10,5 +10,7 @@ namespace CarDealer.Services
         IEnumerable<PartListingModel> All(int page = 1, int pageSize = 10);
 
         int TotalPages();
+
+        void Create(string name, decimal price, int quantity, int supplierId);
     }
 }
