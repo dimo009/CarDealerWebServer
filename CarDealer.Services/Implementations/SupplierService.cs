@@ -1,7 +1,7 @@
 ﻿
 namespace CarDealer.Services.Implementations
 {
-    using CarDealer.Services.Models;
+    using CarDealer.Services.Models.Suppliers;
     using Data;
     using System.Linq;
     using System.Collections.Generic;

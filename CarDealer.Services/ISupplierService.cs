@@ -2,7 +2,7 @@
 
 namespace CarDealer.Services
 {
-    using Models;
+    using Models.Suppliers;
    
     using System.Collections.Generic;
     
