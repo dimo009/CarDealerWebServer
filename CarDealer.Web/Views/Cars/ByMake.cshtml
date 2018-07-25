@@ -5,6 +5,7 @@
 }
 
 <h2>@Model.Make Cars</h2>
+<a href="/cars/create" class="btn btn-primary">Add car</a>
 
 <table class="table-bordered table-hover">
     <thead>
@@ -25,7 +26,7 @@
         {
             <tr>
                 <th>
-                    @car.Make
+                   <a href="cars/@car.Make">@car.Make</a>
                 </th>
                 <th>
                     @car.Model

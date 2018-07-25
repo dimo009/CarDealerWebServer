@@ -16,6 +16,23 @@ namespace CarDealer.Web.Controllers
             this.cars = cars;
         }
 
+        [Route(nameof(Create))]
+        public IActionResult Create() => View();
+
+        [HttpPost]
+        [Route(nameof(Create))]
+        public IActionResult Create(CarFormModel carModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(carModel);
+            }
+            this.cars.Create(carModel.Make, carModel.Model, carModel.Distance);
+
+            return RedirectToAction(nameof(Parts));
+
+        }
+
         [Route("{make}", Order = 2)]
         public IActionResult ByMake(string make)
         {
@@ -27,6 +44,8 @@ namespace CarDealer.Web.Controllers
                 Cars = cars
             });
         }
+
+
         [Route("parts", Order = 1)]
         public IActionResult Parts()
         {

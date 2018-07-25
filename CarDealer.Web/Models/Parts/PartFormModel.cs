@@ -25,5 +25,6 @@ namespace CarDealer.Web.Models.Parts
 
         public IEnumerable<SelectListItem> Suppliers { get; set; }
 
+        public bool IsEditMode { get; set; }
     }
 }

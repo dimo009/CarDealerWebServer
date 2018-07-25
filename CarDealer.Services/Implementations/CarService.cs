@@ -10,6 +10,7 @@ namespace CarDealer.Services.Implementations
     using Cars.Models;
     using CarDealer.Services.Models.Cars;
     using CarDealer.Services.Models;
+    using CarDealer.Data.Models;
 
     public class CarService : ICarService
     {
@@ -36,6 +37,19 @@ namespace CarDealer.Services.Implementations
               .ToList();
 
             return result;
+        }
+
+        public void Create(string make, string model, long distance)
+        {
+            var car = new Car
+            {
+
+                Make = make,
+                Model = model,
+                Distance = distance
+            };
+            this.db.Cars.Add(car);
+            this.db.SaveChanges();
         }
 
         public IEnumerable<CarPartsModel> WithParts()

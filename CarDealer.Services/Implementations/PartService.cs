@@ -5,6 +5,7 @@ namespace CarDealer.Services.Implementations
     using CarDealer.Data;
     using CarDealer.Data.Models;
     using CarDealer.Services.Models;
+    using CarDealer.Services.Models.Parts;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -32,6 +33,18 @@ namespace CarDealer.Services.Implementations
                 Qualtity = p.Quantity,
                 SupplierName = p.Supplier.Name
             }).ToList();
+
+        public PartDetailsModel ById(int id)
+        {
+              return this.db.Parts.Where(p => p.Id == id).Select(p => new PartDetailsModel
+                {
+                    Name = p.Name,
+                    Price = p.Price,
+                  Quantity = p.Quantity
+                })
+                .FirstOrDefault();
+           
+        }
 
         public void Create(string name, decimal price, int quantity, int supplierId)
         {
@@ -67,6 +80,22 @@ namespace CarDealer.Services.Implementations
 
             this.db.Parts.Remove(part);
             this.db.SaveChanges();
+        }
+
+        public void Edit(int id, decimal price, int quantity)
+        {
+            var part = this.db.Parts.Find(id);
+
+            if (part==null)
+            {
+                return;
+            }
+
+            part.Price = price;
+            part.Quantity = quantity;
+
+            this.db.SaveChanges();
+
         }
 
         public int TotalPages()
