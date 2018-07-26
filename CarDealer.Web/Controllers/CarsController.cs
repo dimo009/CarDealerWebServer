@@ -5,6 +5,7 @@ namespace CarDealer.Web.Controllers
     using CarDealer.Services;
     using CarDealer.Services.Implementations;
     using CarDealer.Web.Models.Cars;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace CarDealer.Web.Controllers
             this.parts = parts;
         }
 
+        [Authorize]
         [Route(nameof(Create))]
         public IActionResult Create()
         {
@@ -32,6 +34,7 @@ namespace CarDealer.Web.Controllers
             });
         }
 
+        [Authorize]
         [HttpPost]
         [Route(nameof(Create))]
         public IActionResult Create(CarFormModel carModel)
