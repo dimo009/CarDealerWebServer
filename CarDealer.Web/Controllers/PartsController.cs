@@ -95,7 +95,7 @@ namespace CarDealer.Web.Controllers
         =>
          View(new PartPageListingModel
          {
-             Parts = this.parts.All(page, pageSize),
+             Parts = this.parts.AllListings(page, pageSize),
              CurrentPage = page,
              TotalPages = (int)Math.Ceiling(this.parts.TotalPages() / (double)pageSize)
          });

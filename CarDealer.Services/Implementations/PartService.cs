@@ -20,7 +20,18 @@ namespace CarDealer.Services.Implementations
             this.db = db;
         }
 
-        public IEnumerable<PartListingModel> All(int page = 1, int pageSize = 10) => this.db
+        public IEnumerable<PartBasicModel> All()
+        {
+            return this.db.Parts
+                .OrderBy(p=>p.Id)
+                .Select(p => new PartBasicModel
+            {
+                Id = p.Id,
+                Name = p.Name
+            }).ToList();
+        }
+
+        public IEnumerable<PartListingModel> AllListings(int page = 1, int pageSize = 10) => this.db
             .Parts
             .OrderByDescending(p=>p.Id)
             .Skip((page-1)*pageSize)

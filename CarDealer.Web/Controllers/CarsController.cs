@@ -2,22 +2,35 @@
 
 namespace CarDealer.Web.Controllers
 {
+    using CarDealer.Services;
     using CarDealer.Services.Implementations;
     using CarDealer.Web.Models.Cars;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using System.Collections.Generic;
+    using System.Linq;
 
     [Route("cars")]
     public class CarsController:Controller
     {
-        public readonly ICarService cars;
+        private readonly ICarService cars;
+        private readonly IPartService parts;
 
-        public CarsController(ICarService cars)
+        public CarsController(ICarService cars, IPartService parts)
         {
             this.cars = cars;
+            this.parts = parts;
         }
 
         [Route(nameof(Create))]
-        public IActionResult Create() => View();
+        public IActionResult Create()
+        {
+            return View(new CarFormModel
+            {
+                AllParts = this.GetPartsSelectItems()
+               
+            });
+        }
 
         [HttpPost]
         [Route(nameof(Create))]
@@ -25,9 +38,10 @@ namespace CarDealer.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
+                carModel.AllParts = this.GetPartsSelectItems();
                 return View(carModel);
             }
-            this.cars.Create(carModel.Make, carModel.Model, carModel.Distance);
+            this.cars.Create(carModel.Make, carModel.Model, carModel.Distance, carModel.SelectedParts);
 
             return RedirectToAction(nameof(Parts));
 
@@ -51,5 +65,12 @@ namespace CarDealer.Web.Controllers
         {
             return View(this.cars.WithParts());
         }
+
+        private IEnumerable<SelectListItem> GetPartsSelectItems()
+            => this.parts.All().Select(p => new SelectListItem
+            {
+                Text = p.Name,
+                Value = p.Id.ToString()
+            });
     }
 }

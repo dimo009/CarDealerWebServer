@@ -8,7 +8,9 @@ namespace CarDealer.Services
 {
     public interface IPartService
     {
-        IEnumerable<PartListingModel> All(int page = 1, int pageSize = 10);
+        IEnumerable<PartListingModel> AllListings(int page = 1, int pageSize = 10);
+
+        IEnumerable<PartBasicModel> All();
 
         PartDetailsModel ById(int id);
 

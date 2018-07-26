@@ -14,6 +14,6 @@ namespace CarDealer.Services.Implementations
 
         IEnumerable<CarPartsModel> WithParts();
 
-        void Create(string make, string model, long distance);
+        void Create(string make, string model, long distance,IEnumerable<int>parts);
     }
 }
